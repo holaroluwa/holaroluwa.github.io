@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olaoluwa Odusanya · Outbound Systems for B2B Founders</title>
+<meta name="description" content="Done-for-you cold outreach systems for B2B founders. ICP, sequences, sending setup, pipeline tracking. Built by the operator who closed £28,879 in one deal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0a08;
+  --surface:#141209;
+  --surface2:#1a1710;
+  --line:rgba(212,175,55,.14);
+  --text:#ece7db;
+  --muted:#9a917c;
+  --gold:#d4af37;
+  --gold-hi:#f3dd8e;
+  --serif:"Fraunces",serif;
+  --sans:"Inter",sans-serif;
+  --mono:"JetBrains Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-size:16px;line-height:1.6;overflow-x:hidden;
+  cursor:none;
+}
+@media (hover:none){body{cursor:auto}}
+::selection{background:var(--gold);color:#0b0a08}
+
+/* ---------- grain ---------- */
+body::after{
+  content:"";position:fixed;inset:-50%;z-index:9990;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 8s steps(10) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-10%)}
+  30%{transform:translate(3%,-15%)}50%{transform:translate(12%,9%)}
+  70%{transform:translate(9%,4%)}90%{transform:translate(-1%,7%)}
+}
+
+/* ---------- preloader ---------- */
+#loader{
+  position:fixed;inset:0;z-index:10000;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;
+  transition:transform 1s cubic-bezier(.76,0,.24,1);
+}
+#loader.done{transform:translateY(-100%)}
+#loader .name{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(22px,3.4vw,34px);color:var(--text);
+  opacity:0;animation:fadeUp .9s .15s forwards;
+}
+#loader .pct{
+  font-family:var(--mono);font-size:12px;letter-spacing:.35em;color:var(--gold);
+}
+#loader .bar{width:180px;height:1px;background:rgba(212,175,55,.2);overflow:hidden}
+#loader .bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .12s linear}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ---------- cursor ---------- */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%}
+.cursor-dot{width:6px;height:6px;background:var(--gold);transform:translate(-50%,-50%)}
+.cursor-ring{
+  width:36px;height:36px;border:1px solid rgba(212,175,55,.5);
+  transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,background .3s;
+}
+.cursor-ring.hot{width:64px;height:64px;background:rgba(212,175,55,.08);border-color:var(--gold)}
+@media (hover:none){.cursor-dot,.cursor-ring{display:none}}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px clamp(20px,5vw,64px);
+  transition:background .4s,backdrop-filter .4s,padding .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{background:rgba(11,10,8,.75);backdrop-filter:blur(14px);padding:14px clamp(20px,5vw,64px);border-color:var(--line)}
+nav .logo{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--text);text-decoration:none}
+nav .logo em{color:var(--gold);font-style:italic}
+nav ul{display:flex;gap:34px;list-style:none;align-items:center}
+nav ul a{
+  color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  transition:color .3s;position:relative;
+}
+nav ul a::after{
+  content:"";position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--gold);transition:width .35s;
+}
+nav ul a:hover{color:var(--text)}
+nav ul a:hover::after{width:100%}
+nav .cta-mini{
+  border:1px solid var(--gold);color:var(--gold)!important;padding:9px 20px;border-radius:99px;
+  transition:background .3s,color .3s;
+}
+nav .cta-mini:hover{background:var(--gold);color:#0b0a08!important}
+nav .cta-mini::after{display:none}
+@media (max-width:760px){nav ul li:not(:last-child){display:none}}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding:120px clamp(20px,5vw,64px) 60px;position:relative;overflow:hidden;
+}
+.orb{
+  position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;will-change:transform;
+}
+.orb-1{width:520px;height:520px;background:radial-gradient(circle,rgba(212,175,55,.16),transparent 65%);top:-10%;right:-8%}
+.orb-2{width:420px;height:420px;background:radial-gradient(circle,rgba(140,90,20,.14),transparent 65%);bottom:-14%;left:-6%}
+.hero .kicker{
+  font-family:var(--mono);font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);
+  display:flex;align-items:center;gap:14px;margin-bottom:34px;
+}
+.hero .kicker::before{content:"";width:44px;height:1px;background:var(--gold)}
+.hero h1{
+  font-family:var(--serif);font-weight:340;line-height:1.04;
+  font-size:clamp(44px,8.2vw,118px);letter-spacing:-.015em;max-width:16ch;
+}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:block;transform:translateY(115%);transition:transform 1.1s cubic-bezier(.19,1,.22,1)}
+.loaded .hero h1 .line span{transform:none}
+.loaded .hero h1 .line:nth-child(2) span{transition-delay:.1s}
+.loaded .hero h1 .line:nth-child(3) span{transition-delay:.2s}
+.hero h1 em{
+  font-style:italic;color:transparent;
+  background:linear-gradient(105deg,var(--gold) 20%,var(--gold-hi) 50%,var(--gold) 80%);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;
+  animation:shine 5s linear infinite;
+}
+@keyframes shine{to{background-position:200% center}}
+.hero .sub{
+  margin-top:36px;max-width:52ch;color:var(--muted);font-size:clamp(15px,1.35vw,18px);
+  opacity:0;transform:translateY(20px);transition:opacity .9s .55s,transform .9s .55s;
+}
+.loaded .hero .sub{opacity:1;transform:none}
+.hero .actions{
+  display:flex;gap:18px;margin-top:44px;flex-wrap:wrap;align-items:center;
+  opacity:0;transform:translateY(20px);transition:opacity .9s .75s,transform .9s .75s;
+}
+.loaded .hero .actions{opacity:1;transform:none}
+.btn{
+  position:relative;display:inline-flex;align-items:center;gap:12px;
+  padding:18px 38px;border-radius:99px;text-decoration:none;
+  font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  overflow:hidden;transition:transform .3s;will-change:transform;
+}
+.btn-gold{background:var(--gold);color:#0b0a08}
+.btn-gold::before{
+  content:"";position:absolute;inset:0;background:var(--gold-hi);
+  transform:translateY(101%);transition:transform .45s cubic-bezier(.76,0,.24,1);border-radius:99px;
+}
+.btn-gold:hover::before{transform:none}
+.btn-gold span{position:relative;z-index:1}
+.btn-ghost{border:1px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.hero .scroll-hint{
+  position:absolute;bottom:34px;left:clamp(20px,5vw,64px);
+  font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;
+  display:flex;align-items:center;gap:12px;
+}
+.hero .scroll-hint i{
+  display:block;width:1px;height:44px;background:linear-gradient(var(--gold),transparent);
+  animation:drop 1.8s ease-in-out infinite;transform-origin:top;
+}
+@keyframes drop{0%{transform:scaleY(0)}45%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- marquee ---------- */
+.marquee{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;padding:22px 0;background:var(--surface);
+}
+.marquee .track{display:flex;gap:0;width:max-content;animation:scroll 28s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee .item{
+  font-family:var(--serif);font-style:italic;font-size:22px;color:var(--muted);
+  padding:0 34px;white-space:nowrap;display:flex;align-items:center;gap:34px;
+}
+.marquee .item::after{content:"✦";color:var(--gold);font-size:14px;font-style:normal}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- shared section ---------- */
+section{padding:clamp(80px,11vw,150px) clamp(20px,5vw,64px);position:relative}
+.label{
+  font-family:var(--mono);font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);
+  display:flex;align-items:center;gap:14px;margin-bottom:26px;
+}
+.label::before{content:"";width:44px;height:1px;background:var(--gold)}
+h2{
+  font-family:var(--serif);font-weight:340;line-height:1.08;letter-spacing:-.01em;
+  font-size:clamp(34px,4.6vw,62px);max-width:22ch;
+}
+h2 em{font-style:italic;color:var(--gold)}
+.reveal{opacity:0;transform:translateY(44px);transition:opacity .95s cubic-bezier(.19,1,.22,1),transform .95s cubic-bezier(.19,1,.22,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- stats ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-top:70px;
+}
+@media (max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--bg);padding:44px 34px;transition:background .4s}
+.stat:hover{background:var(--surface)}
+.stat .num{
+  font-family:var(--serif);font-weight:300;font-size:clamp(38px,4.4vw,58px);color:var(--text);line-height:1;
+}
+.stat .num b{font-weight:300;color:var(--gold)}
+.stat .cap{margin-top:14px;color:var(--muted);font-size:14px;max-width:24ch}
+
+/* ---------- services ---------- */
+#work{background:var(--surface)}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:70px}
+@media (max-width:820px){.cards{grid-template-columns:1fr}}
+.card{
+  position:relative;padding:44px 38px;background:var(--bg);
+  border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  transition:transform .5s cubic-bezier(.19,1,.22,1),border-color .5s;
+  will-change:transform;
+}
+.card:hover{transform:translateY(-8px);border-color:rgba(212,175,55,.45)}
+.card::before{
+  content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;pointer-events:none;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(212,175,55,.09),transparent 60%);
+}
+.card:hover::before{opacity:1}
+.card .idx{
+  font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--gold);display:block;margin-bottom:22px;
+}
+.card h3{
+  font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.3vw,28px);line-height:1.2;margin-bottom:16px;
+}
+.card p{color:var(--muted);font-size:15px}
+.card .tail{
+  margin-top:26px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--gold);
+  display:flex;align-items:center;gap:10px;
+}
+.card .tail::before{content:"";width:26px;height:1px;background:var(--gold);transition:width .4s}
+.card:hover .tail::before{width:44px}
+
+/* ---------- proof ---------- */
+.case{
+  margin-top:70px;border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  display:grid;grid-template-columns:1.1fr .9fr;
+}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+.case .left{padding:54px 48px;background:var(--surface)}
+.case .left .tag{
+  display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(212,175,55,.35);padding:7px 16px;border-radius:99px;margin-bottom:26px;
+}
+.case .left h3{font-family:var(--serif);font-weight:340;font-size:clamp(26px,3vw,38px);line-height:1.15;margin-bottom:20px}
+.case .left p{color:var(--muted);max-width:48ch}
+.case .right{padding:54px 48px;display:flex;flex-direction:column;justify-content:center;gap:0}
+.case .row{
+  display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  padding:20px 0;border-bottom:1px solid var(--line);
+}
+.case .row:last-child{border-bottom:none}
+.case .row .k{color:var(--muted);font-size:14px}
+.case .row .v{font-family:var(--serif);font-size:22px;color:var(--text);white-space:nowrap}
+.case .row .v em{color:var(--gold);font-style:italic}
+
+/* ---------- experience ---------- */
+#experience{background:var(--surface)}
+.timeline{margin-top:70px;position:relative;padding-left:42px}
+.timeline::before{
+  content:"";position:absolute;left:8px;top:0;bottom:0;width:1px;
+  background:linear-gradient(var(--gold),rgba(212,175,55,.06));
+  transform:scaleY(var(--tl,0));transform-origin:top;transition:transform .2s linear;
+}
+.tl-item{position:relative;padding:0 0 56px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{
+  content:"";position:absolute;left:-38px;top:8px;width:9px;height:9px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--gold);transition:background .4s,box-shadow .4s;
+}
+.tl-item.in::before{background:var(--gold);box-shadow:0 0 18px rgba(212,175,55,.55)}
+.tl-item .when{font-family:var(--mono);font-size:12px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase}
+.tl-item h3{font-family:var(--serif);font-weight:400;font-size:clamp(21px,2.4vw,30px);margin:10px 0 4px}
+.tl-item .org{color:var(--muted);font-size:14px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px}
+.tl-item p{color:var(--muted);max-width:62ch;font-size:15px}
+.tl-item p b{color:var(--text);font-weight:500}
+
+/* ---------- who ---------- */
+.who-list{margin-top:60px;border-top:1px solid var(--line)}
+.who-row{
+  display:flex;justify-content:space-between;align-items:center;gap:24px;
+  padding:34px 10px;border-bottom:1px solid var(--line);transition:padding .4s,background .4s;
+}
+.who-row:hover{background:var(--surface);padding-left:26px}
+.who-row .t{font-family:var(--serif);font-weight:340;font-size:clamp(22px,3vw,36px)}
+.who-row .d{color:var(--muted);font-size:14px;max-width:34ch;text-align:right}
+@media (max-width:700px){.who-row{flex-direction:column;align-items:flex-start}.who-row .d{text-align:left}}
+
+/* ---------- footer cta ---------- */
+.final{
+  min-height:88svh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;position:relative;overflow:hidden;
+}
+.final h2{max-width:20ch;font-size:clamp(38px,6.4vw,86px);margin:26px auto 0}
+.final .sub{color:var(--muted);margin-top:26px;max-width:46ch}
+.final .actions{margin-top:48px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.final .orb{width:640px;height:640px;background:radial-gradient(circle,rgba(212,175,55,.13),transparent 62%);top:50%;left:50%;transform:translate(-50%,-50%)}
+footer{
+  border-top:1px solid var(--line);padding:34px clamp(20px,5vw,64px);
+  display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+}
+footer .links{display:flex;gap:26px}
+footer a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase;transition:color .3s}
+footer a:hover{color:var(--gold)}
+footer .fine{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 .line span{transform:none}
+  .loaded .hero .sub,.loaded .hero .actions{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="name">Olaoluwa <em style="color:var(--gold)">Odusanya</em></div>
+  <div class="bar"><i id="loadbar"></i></div>
+  <div class="pct" id="loadpct">00</div>
+</div>
+
+<div class="cursor-dot" id="cdot"></div>
+<div class="cursor-ring" id="cring"></div>
+
+<nav id="nav">
+  <a class="logo" href="#top">Ola<em>oluwa</em></a>
+  <ul>
+    <li><a href="#work" data-hot>The System</a></li>
+    <li><a href="#proof" data-hot>Proof</a></li>
+    <li><a href="#experience" data-hot>Experience</a></li>
+    <li><a class="cta-mini" href="https://calendly.com/ola-mockthatinterview/30min" target="_blank" rel="noopener" data-hot>Book a call</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div class="orb orb-1" data-parallax="0.25"></div>
+  <div class="orb orb-2" data-parallax="0.4"></div>
+  <p class="kicker">Outbound Systems · Lagos → Worldwide</p>
+  <h1>
+    <span class="line"><span>I build the</span></span>
+    <span class="line"><span><em>outbound engine</em></span></span>
+    <span class="line"><span>that fills your pipeline.</span></span>
+  </h1>
+  <p class="sub">Done-for-you cold outreach systems for B2B founders. Six years in the seat, from closing £28,000+ deals to building go-to-market motions from a blank page. You get a working system in weeks, not a deck of advice.</p>
+  <div class="actions">
+    <a class="btn btn-gold" href="https://calendly.com/ola-mockthatinterview/30min" target="_blank" rel="noopener" data-magnetic data-hot><span>Book a 30-min call</span></a>
+    <a class="btn btn-ghost" href="#work" data-magnetic data-hot>See what I build</a>
+  </div>
+  <div class="scroll-hint"><i></i> Scroll</div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track" id="marqueetrack">
+    <span class="item">Cold Email</span><span class="item">ICP Design</span><span class="item">LinkedIn Sequences</span><span class="item">Pipeline Tracking</span><span class="item">Sending Infrastructure</span><span class="item">Follow-up Cadence</span><span class="item">Go-To-Market</span>
+  </div>
+</div>
+
+<section id="numbers">
+  <p class="label reveal">The receipts</p>
+  <h2 class="reveal">Numbers from the seat, <em>not the slide deck.</em></h2>
+  <div class="stats">
+    <div class="stat reveal"><div class="num">£<b data-count="28879">0</b></div><p class="cap">Largest single close. The playbook behind it became the team standard.</p></div>
+    <div class="stat reveal"><div class="num"><b data-count="70">0</b>%</div><p class="cap">Revenue growth driven as Sales Team Lead at Darey.io.</p></div>
+    <div class="stat reveal"><div class="num"><b data-count="6">0</b> yrs</div><p class="cap">B2B and B2C sales. Closing, leading, and building outbound from scratch.</p></div>
+    <div class="stat reveal"><div class="num"><b data-count="100">0</b>+</div><p class="cap">Company target universe researched and sequenced for MockThatInterview, from zero.</p></div>
+  </div>
+</section>
+
+<section id="work">
+  <p class="label reveal">The system</p>
+  <h2 class="reveal">Most founders don't have an offer problem. <em>They have a system problem.</em></h2>
+  <p class="reveal" style="color:var(--muted);margin-top:26px;max-width:56ch">They send a few cold emails, hear nothing, and go quiet. I build the machine that keeps the conversation going until the meeting is booked. Four parts, done for you.</p>
+  <div class="cards">
+    <div class="card reveal" data-tilt>
+      <span class="idx">01</span>
+      <h3>A sharp ICP and a clean target list</h3>
+      <p>The right companies and the actual decision-makers inside them. Researched by hand, not scraped and sprayed. Your list is the ceiling on everything downstream.</p>
+      <span class="tail">Targeting</span>
+    </div>
+    <div class="card reveal" data-tilt>
+      <span class="idx">02</span>
+      <h3>Sequences written to get replies</h3>
+      <p>Cold email and LinkedIn touches written for one job: a response. No templates recycled from a 2019 course. Messaging built on how your buyer actually talks.</p>
+      <span class="tail">Messaging</span>
+    </div>
+    <div class="card reveal" data-tilt>
+      <span class="idx">03</span>
+      <h3>Sending setup and follow-up cadence</h3>
+      <p>The infrastructure and rhythm that books meetings. Deliverability handled, follow-ups timed, nothing falls through. Most replies come after touch three. Most founders stop at one.</p>
+      <span class="tail">Execution</span>
+    </div>
+    <div class="card reveal" data-tilt>
+      <span class="idx">04</span>
+      <h3>A pipeline tracker you'll actually use</h3>
+      <p>One simple view of what's working: who replied, who booked, what converts. You always know where the next meeting is coming from.</p>
+      <span class="tail">Visibility</span>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <p class="label reveal">Proof</p>
+  <h2 class="reveal">I don't sell the system. <em>I run it.</em></h2>
+  <div class="case reveal">
+    <div class="left">
+      <span class="tag">Case · MockThatInterview</span>
+      <h3>An outbound go-to-market motion, built from a blank page.</h3>
+      <p>As Founding GTM Partner, I built MockThatInterview's entire outbound engine from zero: the ICP, the prospect research, the messaging, the sequence, and the pipeline tracking that runs the motion day to day. Targeting L&amp;D and talent partners at consulting firms, bootcamps and training programmes. The same system I now build for other B2B teams.</p>
+    </div>
+    <div class="right">
+      <div class="row"><span class="k">Starting point</span><span class="v"><em>Zero.</em> No list, no copy, no process</span></div>
+      <div class="row"><span class="k">Target universe</span><span class="v">~100 companies</span></div>
+      <div class="row"><span class="k">Sequence</span><span class="v">5 touches, email-led</span></div>
+      <div class="row"><span class="k">Ownership</span><span class="v">End to end</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <p class="label reveal">The road here</p>
+  <h2 class="reveal">Six years of carrying a number. <em>Every seat taught the next one.</em></h2>
+  <div class="timeline" id="timeline">
+    <div class="tl-item reveal">
+      <span class="when">May 2026 · Present</span>
+      <h3>Founding GTM Partner</h3>
+      <p class="org">MockThatInterview · United Kingdom</p>
+      <p>Built the outbound go-to-market from zero and own it end to end. <b>ICP, ~100-company target universe, 5-touch sequence, all messaging, pipeline tracking.</b> Also run live mock interviews: technical, competency and case rounds.</p>
+    </div>
+    <div class="tl-item reveal">
+      <span class="when">Dec 2025 · Present</span>
+      <h3>Founder</h3>
+      <p class="org">SalesverseHQ · Lagos</p>
+      <p>Building at the intersection of sales, technology and African ambition. GTM consulting for US and global startups, plus content teaching non-technical sellers how to sell technical products.</p>
+    </div>
+    <div class="tl-item reveal">
+      <span class="when">Nov 2025 · Present</span>
+      <h3>GTM Growth Associate</h3>
+      <p class="org">Basin &amp; Associates · United States</p>
+      <p>Pipeline architecture and data enrichment for US-based GTM operations. <b>Buying-signal analysis and CRM enrichment</b> so the closing team spends time on prospects worth closing.</p>
+    </div>
+    <div class="tl-item reveal">
+      <span class="when">Mar 2024 · Nov 2025</span>
+      <h3>Sales Team Lead, High-Value Closing</h3>
+      <p class="org">Darey.io · Colchester, UK</p>
+      <p>Promoted after 9 months as a closer. <b>Closed the team's largest deal at £28,879</b> and turned that playbook into the team standard. Drove a 70% revenue increase and grew repeat business 20 to 30% by re-engineering the post-sale handoff.</p>
+    </div>
+    <div class="tl-item reveal">
+      <span class="when">Jun 2023 · Feb 2024</span>
+      <h3>Sales Closer</h3>
+      <p class="org">Darey.io · London, UK</p>
+      <p>First closing seat. <b>£23,879 closed in a single deal inside 8 months</b>, at the time one of the largest on the team. Ran the full conversation: qualification, discovery, demo, negotiation, close.</p>
+    </div>
+    <div class="tl-item reveal">
+      <span class="when">2017 · 2022</span>
+      <h3>The foundation years</h3>
+      <p class="org">LandWey · Billionaire Realtor Group · Jumia</p>
+      <p>Real estate sales and team coaching in Lagos, training <b>50 to 100 realtors</b>, plus digital campaigns that beat sales targets by 30%. Before that, last-mile delivery at Jumia. Selling started at street level.</p>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <p class="label reveal">Who this is for</p>
+  <h2 class="reveal">Built for teams whose offer is ready <em>and pipeline isn't.</em></h2>
+  <div class="who-list">
+    <div class="who-row reveal"><span class="t">Training programmes &amp; bootcamps</span><span class="d">You place talent. I put your offer in front of the L&amp;D and talent partners who buy it.</span></div>
+    <div class="who-row reveal"><span class="t">Edtech &amp; consulting firms</span><span class="d">A repeatable motion for partnership and enterprise conversations, not one-off intros.</span></div>
+    <div class="who-row reveal"><span class="t">Early-stage B2B founders</span><span class="d">You need a pipeline but can't justify an SDR hire yet. I'm the system before the headcount.</span></div>
+  </div>
+</section>
+
+<section class="final" id="contact">
+  <div class="orb"></div>
+  <p class="label reveal" style="justify-content:center">Let's talk</p>
+  <h2 class="reveal">The only thing between your offer and your revenue is <em>a pipeline.</em></h2>
+  <p class="sub reveal">A working outbound system in weeks, with the option to have me run it for you after. One call to see if it fits.</p>
+  <div class="actions reveal">
+    <a class="btn btn-gold" href="https://calendly.com/ola-mockthatinterview/30min" target="_blank" rel="noopener" data-magnetic data-hot><span>Book a 30-min call</span></a>
+    <a class="btn btn-ghost" href="mailto:olaoluwa.odusanya.oo@gmail.com" data-magnetic data-hot>Email me</a>
+  </div>
+</section>
+
+<footer>
+  <span class="fine">© 2026 Olaoluwa Odusanya · Lagos, Nigeria</span>
+  <div class="links">
+    <a href="https://www.linkedin.com/in/olaoluwa-odusanya" target="_blank" rel="noopener" data-hot>LinkedIn</a>
+    <a href="https://substack.com/@wealthyola" target="_blank" rel="noopener" data-hot>Substack</a>
+    <a href="mailto:olaoluwa.odusanya.oo@gmail.com" data-hot>Email</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* preloader */
+  var loader=document.getElementById('loader'),bar=document.getElementById('loadbar'),pct=document.getElementById('loadpct');
+  var p=0;
+  var tick=setInterval(function(){
+    p+=Math.random()*14+6;
+    if(p>=100){p=100;clearInterval(tick);
+      setTimeout(function(){loader.classList.add('done');document.body.classList.add('loaded');},250);
+    }
+    bar.style.width=p+'%';
+    pct.textContent=String(Math.floor(p)).padStart(2,'0');
+  },prefersReduced?10:110);
+
+  /* cursor */
+  var dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+  var mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+  addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    dot.style.transform='translate('+(mx-3)+'px,'+(my-3)+'px)';
+  });
+  (function ringLoop(){
+    rx+=(mx-rx)*0.16;ry+=(my-ry)*0.16;
+    ring.style.transform='translate('+(rx-18)+'px,'+(ry-18)+'px)';
+    requestAnimationFrame(ringLoop);
+  })();
+  document.querySelectorAll('a,button,[data-hot]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){ring.classList.add('hot')});
+    el.addEventListener('mouseleave',function(){ring.classList.remove('hot')});
+  });
+
+  /* nav */
+  var nav=document.getElementById('nav');
+  addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>40)},{passive:true});
+
+  /* marquee duplicate */
+  var track=document.getElementById('marqueetrack');
+  track.innerHTML+=track.innerHTML;
+
+  /* reveals */
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal,.tl-item').forEach(function(el){io.observe(el)});
+
+  /* counters */
+  function animateCount(el){
+    var target=+el.dataset.count,start=null,dur=1800;
+    function step(ts){
+      if(!start)start=ts;
+      var k=Math.min((ts-start)/dur,1);
+      k=1-Math.pow(1-k,4);
+      el.textContent=Math.floor(target*k).toLocaleString('en-GB');
+      if(k<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var cio=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){animateCount(en.target);cio.unobserve(en.target);}
+    });
+  },{threshold:0.6});
+  document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el)});
+
+  /* parallax orbs */
+  if(!prefersReduced){
+    addEventListener('scroll',function(){
+      document.querySelectorAll('[data-parallax]').forEach(function(el){
+        el.style.transform='translateY('+(scrollY*el.dataset.parallax)+'px)';
+      });
+    },{passive:true});
+  }
+
+  /* card spotlight + tilt */
+  document.querySelectorAll('.card').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      var x=e.clientX-r.left,y=e.clientY-r.top;
+      card.style.setProperty('--mx',x+'px');
+      card.style.setProperty('--my',y+'px');
+      if(!prefersReduced){
+        var rxDeg=((y/r.height)-.5)*-4,ryDeg=((x/r.width)-.5)*4;
+        card.style.transform='translateY(-8px) perspective(900px) rotateX('+rxDeg+'deg) rotateY('+ryDeg+'deg)';
+      }
+    });
+    card.addEventListener('mouseleave',function(){card.style.transform=''});
+  });
+
+  /* magnetic buttons */
+  if(!prefersReduced){
+    document.querySelectorAll('[data-magnetic]').forEach(function(btn){
+      btn.addEventListener('mousemove',function(e){
+        var r=btn.getBoundingClientRect();
+        var x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+        btn.style.transform='translate('+x*0.22+'px,'+y*0.32+'px)';
+      });
+      btn.addEventListener('mouseleave',function(){btn.style.transform=''});
+    });
+  }
+
+  /* timeline draw */
+  var tl=document.getElementById('timeline');
+  function drawTl(){
+    var r=tl.getBoundingClientRect();
+    var progress=Math.min(Math.max((innerHeight*0.75-r.top)/r.height,0),1);
+    tl.style.setProperty('--tl',progress);
+  }
+  addEventListener('scroll',drawTl,{passive:true});
+  drawTl();
+})();
+</script>
+
+</body>
+</html>
