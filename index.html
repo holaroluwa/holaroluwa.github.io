@@ -107,7 +107,7 @@ nav .cta-mini{
 }
 nav .cta-mini:hover{background:var(--gold);color:#0b0a08!important}
 nav .cta-mini::after{display:none}
-@media (max-width:760px){nav ul li:not(:last-child){display:none}}
+@media (max-width:760px){nav ul li:not(:last-child):not(.keep-mobile){display:none}}
 
 /* ---------- hero ---------- */
 .hero{
@@ -346,7 +346,7 @@ footer .fine{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:v
     <li><a href="#work" data-hot>The System</a></li>
     <li><a href="#proof" data-hot>Proof</a></li>
     <li><a href="#experience" data-hot>Experience</a></li>
-    <li><a href="products.html" data-hot>Products</a></li>
+    <li class="keep-mobile"><a href="products.html" data-hot>Products</a></li>
     <li><a class="cta-mini" href="https://calendly.com/ola-mockthatinterview/30min" target="_blank" rel="noopener" data-hot>Book a call</a></li>
   </ul>
 </nav>
