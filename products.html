@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olaoluwa Odusanya · Products</title>
+<meta name="description" content="Real systems for B2B sales and content, built and run by the person selling them. No courses, no theory.">
+<meta property="og:title" content="Olaoluwa Odusanya · Products">
+<meta property="og:description" content="Real systems for B2B sales and content, built and run by the person selling them.">
+<meta property="og:image" content="https://holaroluwa.github.io/og-image.png">
+<meta property="og:url" content="https://holaroluwa.github.io/products.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://holaroluwa.github.io/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0a08;
+  --surface:#141209;
+  --surface2:#1a1710;
+  --line:rgba(212,175,55,.14);
+  --text:#ece7db;
+  --muted:#9a917c;
+  --gold:#d4af37;
+  --gold-hi:#f3dd8e;
+  --serif:"Fraunces",serif;
+  --sans:"Inter",sans-serif;
+  --mono:"JetBrains Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden}
+::selection{background:var(--gold);color:#0b0a08}
+
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:900;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px clamp(20px,5vw,64px);
+  background:rgba(11,10,8,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+}
+nav .logo{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--text);text-decoration:none}
+nav .logo em{color:var(--gold);font-style:italic}
+nav ul{display:flex;gap:34px;list-style:none;align-items:center}
+nav ul a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase;transition:color .3s;position:relative}
+nav ul a:hover{color:var(--text)}
+nav .cta-mini{border:1px solid var(--gold);color:var(--gold)!important;padding:9px 20px;border-radius:99px;transition:background .3s,color .3s}
+nav .cta-mini:hover{background:var(--gold);color:#0b0a08!important}
+@media (max-width:760px){nav ul li:not(:last-child):not(:first-child){display:none}}
+
+header.top{padding:100px clamp(20px,5vw,64px) 60px}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.label::before{content:"";width:44px;height:1px;background:var(--gold)}
+h1{font-family:var(--serif);font-weight:340;line-height:1.08;letter-spacing:-.01em;font-size:clamp(38px,6vw,72px);max-width:18ch}
+h1 em{font-style:italic;color:var(--gold)}
+header.top .sub{margin-top:26px;max-width:56ch;color:var(--muted);font-size:clamp(15px,1.3vw,18px)}
+
+section{padding:20px clamp(20px,5vw,64px) clamp(60px,9vw,110px)}
+
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:20px}
+@media (max-width:980px){.products{grid-template-columns:1fr}}
+.pcard{
+  position:relative;padding:40px 32px;background:var(--surface);
+  border:1px solid var(--line);border-radius:6px;display:flex;flex-direction:column;
+  transition:transform .4s cubic-bezier(.19,1,.22,1),border-color .4s;
+}
+.pcard:hover{transform:translateY(-6px);border-color:rgba(212,175,55,.45)}
+.pcard .status{
+  align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  padding:6px 14px;border-radius:99px;margin-bottom:22px;
+}
+.status-live{color:#0b0a08;background:var(--gold)}
+.status-soon{color:var(--gold);border:1px solid rgba(212,175,55,.4)}
+.pcard h3{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.2vw,27px);line-height:1.2;margin-bottom:14px}
+.pcard p{color:var(--muted);font-size:14.5px;flex-grow:1}
+.pcard .price{
+  font-family:var(--serif);font-size:clamp(28px,2.6vw,34px);color:var(--text);margin:24px 0 22px;
+}
+.pcard .price s{color:var(--muted);font-size:.55em;margin-left:10px;font-style:normal}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px 28px;border-radius:99px;text-decoration:none;
+  font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  transition:transform .3s,background .3s,color .3s;
+}
+.btn-gold{background:var(--gold);color:#0b0a08}
+.btn-gold:hover{background:var(--gold-hi)}
+.btn-ghost{border:1px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+.community{
+  margin-top:70px;border:1px solid var(--line);border-radius:6px;padding:48px clamp(28px,4vw,56px);
+  background:var(--surface2);display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;
+}
+.community h3{font-family:var(--serif);font-weight:340;font-size:clamp(22px,2.4vw,30px);max-width:26ch}
+.community p{color:var(--muted);margin-top:10px;max-width:44ch;font-size:14.5px}
+
+footer{border-top:1px solid var(--line);padding:34px clamp(20px,5vw,64px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .links{display:flex;gap:26px}
+footer a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase;transition:color .3s}
+footer a:hover{color:var(--gold)}
+footer .fine{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">Ola<em>oluwa</em></a>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a class="cta-mini" href="https://calendly.com/ola-mockthatinterview/30min" target="_blank" rel="noopener">Book a call</a></li>
+  </ul>
+</nav>
+
+<header class="top">
+  <p class="label">Products</p>
+  <h1>Real systems, <em>not theory.</em></h1>
+  <p class="sub">Everything below is something I actually run, on my own accounts, before I ever sold it. No fabricated case studies, no "guaranteed results" language. Just the real system and the real numbers behind it.</p>
+</header>
+
+<section>
+  <div class="products">
+
+    <div class="pcard">
+      <span class="status status-live">Live now</span>
+      <h3>SalesverseHQ GTM Starter Kit</h3>
+      <p>The complete outbound system: ICP worksheet, sequence templates, sending setup, pipeline tracker. The productized version of the same system I build for done-for-you clients.</p>
+      <div class="price">₦85,000 <span style="font-size:.4em;color:var(--muted)">/ £49</span></div>
+      <a class="btn btn-gold" href="https://selar.com/8s9g604724" target="_blank" rel="noopener">Get the kit</a>
+    </div>
+
+    <div class="pcard">
+      <span class="status status-soon">Opening this week</span>
+      <h3>The One-Sentence Filter</h3>
+      <p>One prompt that interviews you about your list, then flags, scores, and cuts it down to who you'll actually contact. Paste it into Claude or ChatGPT. Comes with 49 more prompts for everything else.</p>
+      <div class="price">₦15,000</div>
+      <a class="btn btn-ghost" href="mailto:olaoluwa.odusanya.oo@gmail.com?subject=Early%20access%3A%20The%20One-Sentence%20Filter">Join the early list</a>
+    </div>
+
+    <div class="pcard">
+      <span class="status status-soon">In development</span>
+      <h3>The Daily Content System</h3>
+      <p>The exact method behind the posts you're reading right now: one real truth, no teaching arc, reshaped across every platform in under an hour. Includes the template, the reshape formula, and the real numbers.</p>
+      <div class="price">₦20,000</div>
+      <a class="btn btn-ghost" href="mailto:olaoluwa.odusanya.oo@gmail.com?subject=Early%20access%3A%20The%20Daily%20Content%20System">Join the early list</a>
+    </div>
+
+  </div>
+
+  <div class="community">
+    <div>
+      <h3>Thinking about a paid community?</h3>
+      <p>Not built yet. If a room of people doing this for real (sales, content, building in public) is something you'd pay to be in, tell me and I'll build it for the people who actually asked.</p>
+    </div>
+    <a class="btn btn-gold" href="mailto:olaoluwa.odusanya.oo@gmail.com?subject=Interested%20in%20a%20paid%20community">Join the waitlist</a>
+  </div>
+</section>
+
+<footer>
+  <span class="fine">© 2026 Olaoluwa Odusanya · Lagos, Nigeria</span>
+  <div class="links">
+    <a href="https://www.linkedin.com/in/olaoluwa-odusanya" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://substack.com/@wealthyola" target="_blank" rel="noopener">Substack</a>
+    <a href="mailto:olaoluwa.odusanya.oo@gmail.com">Email</a>
+  </div>
+</footer>
+
+</body>
+</html>
