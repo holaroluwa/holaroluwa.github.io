@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The One-Sentence Filter: Using AI to Cut Any List Down to What Matters</title>
+<meta name="description" content="A real method for filtering a sales list, a job hunt, or a feature backlog with AI: write one sentence that defines a fit, then let the model score against it. Not a tool review, the actual method.">
+<meta property="og:title" content="The One-Sentence Filter: Using AI to Cut Any List Down to What Matters">
+<meta property="og:description" content="Write one sentence that defines a fit. Let AI score against it, not choose for you. The real method, run on a real 104-company list.">
+<meta property="og:image" content="https://holaroluwa.github.io/og-image.png">
+<meta property="og:url" content="https://holaroluwa.github.io/articles/the-one-sentence-filter.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://holaroluwa.github.io/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0a08;--surface:#141209;--surface2:#1a1710;--line:rgba(212,175,55,.14);
+  --text:#ece7db;--muted:#9a917c;--gold:#d4af37;--gold-hi:#f3dd8e;
+  --serif:"Fraunces",serif;--sans:"Inter",sans-serif;--mono:"JetBrains Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.7}
+::selection{background:var(--gold);color:#0b0a08}
+
+nav{
+  position:sticky;top:0;z-index:900;display:flex;justify-content:space-between;align-items:center;
+  padding:22px clamp(20px,5vw,64px);background:rgba(11,10,8,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+}
+nav .logo{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--text);text-decoration:none}
+nav .logo em{color:var(--gold);font-style:italic}
+nav ul{display:flex;gap:34px;list-style:none;align-items:center}
+nav ul a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+nav ul a:hover{color:var(--text)}
+nav .cta-mini{border:1px solid var(--gold);color:var(--gold)!important;padding:9px 20px;border-radius:99px}
+nav .cta-mini:hover{background:var(--gold);color:#0b0a08!important}
+@media (max-width:760px){nav ul li:not(:last-child):not(.keep-mobile){display:none}}
+
+.crumb{padding:22px clamp(20px,5vw,64px) 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.crumb a{color:var(--muted);text-decoration:none}
+.crumb a:hover{color:var(--gold)}
+
+.masthead{padding:34px clamp(20px,5vw,64px) 0;max-width:900px}
+.masthead .tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);
+  border:1px solid rgba(212,175,55,.35);padding:6px 14px;border-radius:99px;display:inline-block;margin-bottom:22px;
+}
+h1{font-family:var(--serif);font-weight:340;line-height:1.1;font-size:clamp(32px,5vw,54px);letter-spacing:-.01em}
+.byline{display:flex;align-items:center;gap:14px;margin-top:28px;color:var(--muted);font-size:14px}
+.byline .who{color:var(--text);font-weight:500}
+.byline .dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
+
+.layout{
+  display:grid;grid-template-columns:220px minmax(0,760px);gap:60px;
+  padding:50px clamp(20px,5vw,64px) 120px;max-width:1180px;margin:0 auto;
+}
+@media (max-width:920px){.layout{grid-template-columns:1fr}}
+.toc{position:sticky;top:90px;align-self:start}
+@media (max-width:920px){.toc{position:static;border:1px solid var(--line);border-radius:6px;padding:20px;margin-bottom:10px}}
+.toc .label{font-family:var(--mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.toc ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.toc a{color:var(--muted);text-decoration:none;font-size:13.5px;line-height:1.4;display:block}
+.toc a:hover{color:var(--text)}
+
+article p{color:#d9d3c4;margin-bottom:20px;font-size:16.5px}
+article h2{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.6vw,32px);margin:52px 0 20px;color:var(--text)}
+article h2:first-of-type{margin-top:0}
+article strong{color:var(--text);font-weight:600}
+article a{color:var(--gold-hi)}
+.summary{
+  background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:4px;padding:26px 28px;margin:0 0 44px;
+}
+.summary .label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.summary ul{padding-left:20px;color:#d9d3c4;font-size:15px;display:flex;flex-direction:column;gap:8px}
+.prompt{
+  background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:22px 24px;
+  font-family:var(--mono);font-size:13.5px;line-height:1.7;color:#cfc7ac;margin:18px 0 28px;white-space:pre-wrap;
+}
+.sentence-box{
+  border:1px solid rgba(212,175,55,.35);background:rgba(212,175,55,.06);border-radius:6px;
+  padding:18px 22px;font-family:var(--serif);font-style:italic;font-size:18px;color:var(--gold-hi);margin:20px 0 28px;
+}
+.examples{display:grid;grid-template-columns:1fr;gap:14px;margin:8px 0 28px}
+.ex{border:1px solid var(--line);border-radius:6px;padding:18px 22px;background:var(--surface)}
+.ex .k{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.ex p{margin:0;font-size:15px;color:#d9d3c4}
+
+.faq{margin-top:16px;border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item summary{
+  cursor:pointer;list-style:none;padding:22px 4px;display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--serif);font-size:17px;color:var(--text);
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";color:var(--gold);font-size:20px;font-family:var(--sans)}
+.faq-item[open] summary::after{content:"–"}
+.faq-item p{padding:0 4px 22px;color:var(--muted);font-size:15px;max-width:64ch}
+
+.cta-box{
+  margin-top:56px;border:1px solid var(--line);border-radius:6px;padding:36px 32px;background:var(--surface2);
+  display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.cta-box h3{font-family:var(--serif);font-weight:340;font-size:clamp(19px,2vw,23px);max-width:32ch}
+.cta-box p{color:var(--muted);margin:8px 0 0;font-size:14px;max-width:40ch}
+.btn{display:inline-flex;padding:15px 26px;border-radius:99px;text-decoration:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;background:var(--gold);color:#0b0a08;white-space:nowrap}
+.btn:hover{background:var(--gold-hi)}
+
+footer{border-top:1px solid var(--line);padding:34px clamp(20px,5vw,64px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+footer a:hover{color:var(--gold)}
+footer .fine{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="../index.html">Ola<em>oluwa</em></a>
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../products.html">Products</a></li>
+    <li class="keep-mobile"><a href="../articles/the-one-sentence-filter.html">Articles</a></li>
+    <li><a class="cta-mini" href="https://calendly.com/ola-mockthatinterview/30min" target="_blank" rel="noopener">Book a call</a></li>
+  </ul>
+</nav>
+
+<p class="crumb"><a href="../index.html">Home</a> / <a href="../articles/the-one-sentence-filter.html">Articles</a> / Sales &amp; AI / The One-Sentence Filter</p>
+
+<header class="masthead">
+  <span class="tag">Sales · AI</span>
+  <h1>The One-Sentence Filter: Using AI to Cut Any List Down to What Matters</h1>
+  <div class="byline">
+    <span class="who">Olaoluwa Odusanya</span>
+    <span class="dot"></span>
+    <span>B2B sales, six years in the seat, building outbound systems</span>
+    <span class="dot"></span>
+    <span>Sep 2026</span>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="toc">
+    <p class="label">In this article</p>
+    <ul>
+      <li><a href="#intro">Why long lists feel like progress</a></li>
+      <li><a href="#sentence">Step 1: Write one sentence</a></li>
+      <li><a href="#score">Step 2: Score, don't choose</a></li>
+      <li><a href="#reasons">Step 3: Read the reasons</a></li>
+      <li><a href="#top">Step 4: Work the top</a></li>
+      <li><a href="#beyond">Beyond sales lists</a></li>
+      <li><a href="#idea">The one idea underneath</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <div class="summary">
+      <p class="label">What you'll get from this</p>
+      <ul>
+        <li>The exact one-sentence method used to cut a real 104-company sales list down to the 40 worth contacting</li>
+        <li>The real prompt to paste into Claude or ChatGPT, word for word</li>
+        <li>Why scoring beats asking AI to "pick the best ones" outright</li>
+        <li>How the same method applies to a job hunt, a feature backlog, or a Sunday-night task list</li>
+      </ul>
+    </div>
+
+    <h2 id="intro">Why long lists feel like progress</h2>
+    <p>For a long time I confused having a long list with making progress.</p>
+    <p>A list of 104 companies to email. A to-do list so full it had stopped telling me anything. It all felt like readiness. It was mostly just weight.</p>
+    <p>The thing that changed it is small, and you can do it in the next ten minutes on whatever list is sitting heaviest on you right now. I use AI for the sorting, but <strong>the method is the point, not the tool.</strong></p>
+
+    <h2 id="sentence">Step 1: Write one sentence that defines a fit</h2>
+    <p>One sentence. Specific enough that you can pick up any item on the list, hold it against the sentence, and get a clean yes or no.</p>
+    <p>For my prospect list it was:</p>
+    <div class="sentence-box">"A B2B company with a sales team of 5 to 30 people that is hiring at least one SDR right now."</div>
+    <p>Every phrase in it is a filter. "Sales team of 5 to 30" rules out both solo founders and enterprise. "Hiring an SDR right now" means the problem I solve is live for them today.</p>
+    <p>If you sit down to write this sentence and you can't, that's the real finding. It means you've been working a list without knowing what you're looking for, and no amount of AI cleans that up. Write the sentence first.</p>
+
+    <h2 id="score">Step 2: Ask the tool to score, not to choose</h2>
+    <p>Open ChatGPT or Claude. Paste the list and the sentence. Then use a prompt close to this one:</p>
+    <div class="prompt">Here is a list. A good fit looks like this: [your one sentence]. Score every item from 1 to 5 for how well it matches that sentence. For anything you score 3 or lower, give me a one-line reason. Return it as a table, sorted best to worst.</div>
+    <p>Ask for the score and the reasons, not "which ones are best." The difference matters. A ranked list with reasons lets you see how the tool read your sentence, so you can catch it when it gets you wrong.</p>
+
+    <h2 id="reasons">Step 3: Read the reasons before you cut anything</h2>
+    <p>This is the step everyone skips, and it's where the value is.</p>
+    <p>The reasons on the low scores do two jobs. They tell you what to remove, and they tell you where your sentence was too loose. When I ran mine, a batch of companies scored 2 with the reason "no sign of a sales team." I had written "sales team of 5 to 30" but half my list was companies I <em>hoped</em> had one. The sentence was a wish, not a filter. I tightened it and ran it again.</p>
+
+    <h2 id="top">Step 4: Work the top, and trust a short list</h2>
+    <p>Take the 4s and 5s and start there. If that pile looks small, that's the method working, not failing. A short list you actually believe in beats a long one you're avoiding.</p>
+    <p>My 104 companies became about 40. I stopped feeling behind on the other 64, because they were never really the list.</p>
+
+    <h2 id="beyond">This isn't just a sales trick</h2>
+    <p>I learned it on a prospect list, but I now run it on almost everything that piles up.</p>
+    <div class="examples">
+      <div class="ex"><div class="k">A job hunt</div><p>"A role where I'd be the second or third GTM hire, at a company past its seed round." Paste the postings, score them, apply to the 4s.</p></div>
+      <div class="ex"><div class="k">A feature backlog</div><p>"Something a paying user has asked for twice in the last month." Score the backlog, build from the top.</p></div>
+      <div class="ex"><div class="k">A week's tasks, Sunday night</div><p>"Moves a real number or a real conversation forward by Friday." Score the list, do those first.</p></div>
+    </div>
+
+    <h2 id="idea">The one idea underneath</h2>
+    <p>The AI can rank a hundred things against a clear standard in seconds. It cannot decide what your standard is. That decision, compressed into one honest sentence, is the entire skill.</p>
+    <p>Most people never write the sentence. They keep the long list instead, because a long list feels like being prepared, and writing the sentence feels like admitting most of it doesn't count.</p>
+    <p><strong>Write the sentence. Let the tool sort. Work the top.</strong></p>
+
+    <section class="faq" id="faq">
+      <details class="faq-item" open>
+        <summary>Do I need a paid AI tool for this?</summary>
+        <p>No. A free ChatGPT or Claude account runs this exact prompt. The method doesn't need a paid plan or a specific model.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What if I genuinely can't write the one sentence?</summary>
+        <p>That's the real finding, not a failure of the method. It means you've been working the list without knowing what you're actually filtering for. Sit with that before you touch the AI part.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Why score instead of just asking AI to pick the best ones?</summary>
+        <p>A bare pick hides the model's reasoning. A score with a reason attached lets you check its work and catch it misreading your sentence, which happens more than you'd expect.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Does this only work for sales prospect lists?</summary>
+        <p>No. The same shape applies to a job hunt, a product feature backlog, or a plain Sunday-night task list. Anything that piled up past the point of being useful.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is there a more complete version of this prompt?</summary>
+        <p>Yes. The full interview-first version, which asks clarifying questions before scoring anything, is built into <a href="../products.html">The One-Sentence Filter</a>.</p>
+      </details>
+    </section>
+
+    <div class="cta-box">
+      <div>
+        <h3>Want the full interactive version of this prompt?</h3>
+        <p>The One-Sentence Filter interviews you about your list first, then flags, scores, and cuts it, plus 49 more prompts for everything else.</p>
+      </div>
+      <a class="btn" href="../products.html">See the product</a>
+    </div>
+  </article>
+</div>
+
+<footer>
+  <span class="fine">© 2026 Olaoluwa Odusanya · Lagos, Nigeria</span>
+  <div class="links">
+    <a href="https://www.linkedin.com/in/olaoluwa-odusanya" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://substack.com/@wealthyola" target="_blank" rel="noopener">Substack</a>
+    <a href="mailto:olaoluwa.odusanya.oo@gmail.com">Email</a>
+  </div>
+</footer>
+
+</body>
+</html>
