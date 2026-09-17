@@ -15,6 +15,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+(function(){
+  try{
+    var t = localStorage.getItem('theme');
+    if(t==='light'){ document.documentElement.setAttribute('data-theme','light'); }
+  }catch(e){}
+})();
+</script>
 <style>
 :root{
   --bg:#0b0a08;
@@ -29,6 +37,29 @@
   --sans:"Inter",sans-serif;
   --mono:"JetBrains Mono",monospace;
 }
+html{--nav-bg:rgba(11,10,8,.75)}
+html[data-theme="light"]{
+  --bg:#F1EBDD;
+  --surface:#E8E0C8;
+  --surface2:#EFE8D5;
+  --line:rgba(20,16,10,.14);
+  --text:#14100A;
+  --muted:#6b6353;
+  --gold:#9c7a2e;
+  --gold-hi:#AA7C34;
+  --nav-bg:rgba(241,235,221,.85);
+}
+.theme-toggle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+  background:transparent;color:var(--text);cursor:pointer;transition:border-color .3s,color .3s;
+  flex-shrink:0;
+}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold)}
+.theme-toggle svg{display:block}
+.theme-toggle .icon-moon{display:none}
+html[data-theme="light"] .theme-toggle .icon-sun{display:none}
+html[data-theme="light"] .theme-toggle .icon-moon{display:block}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -88,7 +119,7 @@ nav{
   transition:background .4s,backdrop-filter .4s,padding .4s,border-color .4s;
   border-bottom:1px solid transparent;
 }
-nav.scrolled{background:rgba(11,10,8,.75);backdrop-filter:blur(14px);padding:14px clamp(20px,5vw,64px);border-color:var(--line)}
+nav.scrolled{background:var(--nav-bg);backdrop-filter:blur(14px);padding:14px clamp(20px,5vw,64px);border-color:var(--line)}
 nav .logo{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--text);text-decoration:none}
 nav .logo em{color:var(--gold);font-style:italic}
 nav ul{display:flex;gap:34px;list-style:none;align-items:center}
@@ -355,7 +386,13 @@ footer .fine{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:v
     <li><a href="#experience" data-hot>Experience</a></li>
     <li class="keep-mobile"><a href="products.html" data-hot>Products</a></li>
     <li class="keep-mobile"><a href="articles/the-one-sentence-filter.html" data-hot>Articles</a></li>
-    <li><a class="cta-mini" href="https://calendly.com/ola-mockthatinterview/30min" target="_blank" rel="noopener" data-hot>Book a call</a></li>
+    <li class="keep-mobile"><a class="cta-mini" href="https://calendly.com/ola-mockthatinterview/30min" target="_blank" rel="noopener" data-hot>Book a call</a></li>
+    <li class="keep-mobile">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode" data-hot>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </li>
   </ul>
 </nav>
 
@@ -519,6 +556,21 @@ footer .fine{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:v
 <script>
 (function(){
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* theme toggle */
+  var themeBtn = document.getElementById('themeToggle');
+  if(themeBtn){
+    themeBtn.addEventListener('click', function(){
+      var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if(isLight){
+        document.documentElement.removeAttribute('data-theme');
+        try{ localStorage.setItem('theme','dark'); }catch(e){}
+      } else {
+        document.documentElement.setAttribute('data-theme','light');
+        try{ localStorage.setItem('theme','light'); }catch(e){}
+      }
+    });
+  }
 
   /* preloader */
   var loader=document.getElementById('loader'),bar=document.getElementById('loadbar'),pct=document.getElementById('loadpct');
