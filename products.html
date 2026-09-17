@@ -47,7 +47,14 @@ nav ul a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.
 nav ul a:hover{color:var(--text)}
 nav .cta-mini{border:1px solid var(--gold);color:var(--gold)!important;padding:9px 20px;border-radius:99px;transition:background .3s,color .3s}
 nav .cta-mini:hover{background:var(--gold);color:#0b0a08!important}
-@media (max-width:760px){nav ul li:not(:last-child):not(:first-child):not(.keep-mobile){display:none}}
+nav ul a{white-space:nowrap}
+@media (max-width:760px){
+  nav{flex-wrap:wrap;row-gap:12px}
+  nav ul li:not(:last-child):not(:first-child):not(.keep-mobile){display:none}
+  nav ul{width:100%;justify-content:flex-start;flex-wrap:wrap;gap:16px}
+  nav ul a{font-size:12px}
+  nav .cta-mini{padding:8px 16px}
+}
 
 header.top{padding:100px clamp(20px,5vw,64px) 60px}
 .label{font-family:var(--mono);font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:26px}

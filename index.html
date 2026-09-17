@@ -107,7 +107,14 @@ nav .cta-mini{
 }
 nav .cta-mini:hover{background:var(--gold);color:#0b0a08!important}
 nav .cta-mini::after{display:none}
-@media (max-width:760px){nav ul li:not(:last-child):not(.keep-mobile){display:none}}
+nav ul a{white-space:nowrap}
+@media (max-width:760px){
+  nav{flex-wrap:wrap;row-gap:12px}
+  nav ul li:not(:last-child):not(.keep-mobile){display:none}
+  nav ul{width:100%;justify-content:flex-start;flex-wrap:wrap;gap:16px}
+  nav ul a{font-size:12px}
+  nav .cta-mini{padding:8px 16px}
+}
 
 /* ---------- hero ---------- */
 .hero{
